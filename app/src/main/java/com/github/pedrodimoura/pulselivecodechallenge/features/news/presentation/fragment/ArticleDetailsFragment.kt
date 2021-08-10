@@ -15,7 +15,9 @@ import com.github.pedrodimoura.pulselivecodechallenge.features.news.domain.model
 import com.github.pedrodimoura.pulselivecodechallenge.features.news.presentation.state.ArticleState
 import com.github.pedrodimoura.pulselivecodechallenge.features.news.presentation.viewmodel.NewsViewModel
 import com.google.android.material.snackbar.Snackbar
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class ArticleDetailsFragment : Fragment() {
 
     private lateinit var viewBinding: FragmentArticleDetailsBinding

@@ -23,7 +23,7 @@ android {
         versionCode = 1
         versionName = "1.0"
 
-        testInstrumentationRunner("androidx.test.runner.AndroidJUnitRunner")
+        testInstrumentationRunner("com.github.pedrodimoura.pulselivecodechallenge.common.HiltAndroidRunner")
     }
 
     buildTypes {
@@ -41,6 +41,12 @@ android {
             buildConfigField("String", "BASE_URL", "\"http://dynamic.pulselive.com/test/native/\"")
         }
     }
+
+    testOptions {
+        unitTests.isReturnDefaultValues = true
+        unitTests.isIncludeAndroidResources = true
+    }
+
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_1_8
         targetCompatibility = JavaVersion.VERSION_1_8
@@ -48,6 +54,16 @@ android {
 
     buildFeatures {
         viewBinding = true
+    }
+
+    sourceSets {
+        getByName("androidTest").assets.srcDirs("src/debug/assets")
+    }
+
+    packagingOptions {
+        exclude("META-INF/metadata.jvm.kotlin_module")
+        exclude("META-INF/gradle/incremental.annotation.processors")
+        exclude("META-INF/metadata.kotlin_module")
     }
 }
 
@@ -76,6 +92,18 @@ dependencies {
     testImplementation(TestAppDependencies.mockk)
     testImplementation(TestAppDependencies.coroutines)
     testImplementation(TestAppDependencies.coreTesting)
+    kaptTest(TestAppDependencies.hiltCompiler)
     androidTestImplementation(TestAppDependencies.junitExt)
     androidTestImplementation(TestAppDependencies.espresso)
+
+    androidTestImplementation(TestAppDependencies.hiltAndroidTest)
+    kaptAndroidTest(TestAppDependencies.hiltCompiler)
+    androidTestImplementation(TestAppDependencies.espressoIntent)
+    androidTestImplementation(TestAppDependencies.espressoContrib)
+    androidTestImplementation(TestAppDependencies.mockWebServer)
+    androidTestImplementation(TestAppDependencies.okHttpIdlingResource)
+    androidTestImplementation(TestAppDependencies.mockkAndroid)
+    androidTestImplementation(TestAppDependencies.dexMaker)
+    androidTestImplementation(TestAppDependencies.navigation)
+    androidTestImplementation(TestAppDependencies.coreKtxTesting)
 }

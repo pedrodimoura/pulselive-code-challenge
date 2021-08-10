@@ -5,11 +5,14 @@ import com.github.pedrodimoura.pulselivecodechallenge.features.news.data.datasou
 import retrofit2.http.GET
 import retrofit2.http.Path
 
+const val NEWS_INFORMATION_ENDPOINT = "contentList.json"
+const val ARTICLE_DETAILS_ENDPOINT = "content/{id}.json"
+
 interface NewsService {
 
-    @GET("contentList.json")
+    @GET(NEWS_INFORMATION_ENDPOINT)
     suspend fun fetchNews(): NewsResponse
 
-    @GET("content/{id}.json")
+    @GET(ARTICLE_DETAILS_ENDPOINT)
     suspend fun fetchArticleDetails(@Path("id") articleId: Int): ArticleDetailsResponse
 }

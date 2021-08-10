@@ -24,5 +24,9 @@ object Versions {
     const val espresso = "3.4.0"
     const val mockk = "1.12.0"
     const val coreTesting = "2.1.0"
+    const val mockWebServer = "4.9.1"
+    const val okHttpIdlingResource = "1.0.0"
+    const val dexMaker = "2.28.1"
+    const val coreKtxTest = "1.3.0"
 
 }
