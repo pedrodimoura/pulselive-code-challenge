@@ -48,7 +48,7 @@ class NewsRemoteDatasourceTest {
     @Test
     fun shouldBeSuccessfulWhenFetchArticleDetails() {
         runBlockingTest {
-            coEvery { newsService.fetchArticleDetails(any()) } returns mockk()
+            coEvery { newsService.fetchArticleDetails(any()) } returns mockk(relaxed = true)
 
             newsRemoteDatasource.getArticleDetails(1)
 
