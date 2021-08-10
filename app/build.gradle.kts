@@ -32,10 +32,12 @@ android {
                 getDefaultProguardFile("proguard-android-optimize.txt"),
                 "proguard-rules.pro"
             )
+            buildConfigField("String", "BASE_URL", "\"http://dynamic.pulselive.com/test/native/\"")
         }
         getByName("debug") {
             isMinifyEnabled = false
             isDebuggable = true
+            buildConfigField("String", "BASE_URL", "\"http://dynamic.pulselive.com/test/native/\"")
         }
     }
     compileOptions {

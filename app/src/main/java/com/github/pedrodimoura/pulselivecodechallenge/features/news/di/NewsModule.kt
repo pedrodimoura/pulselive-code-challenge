@@ -1,5 +1,6 @@
 package com.github.pedrodimoura.pulselivecodechallenge.features.news.di
 
+import com.github.pedrodimoura.pulselivecodechallenge.common.data.networking.HttpClient
 import com.github.pedrodimoura.pulselivecodechallenge.features.news.data.datasources.remote.NewsRemoteDatasource
 import com.github.pedrodimoura.pulselivecodechallenge.features.news.data.datasources.remote.impl.NewsRemoteDatasourceImpl
 import com.github.pedrodimoura.pulselivecodechallenge.features.news.data.datasources.remote.service.NewsService
@@ -11,7 +12,6 @@ import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.android.components.ViewModelComponent
 import dagger.hilt.components.SingletonComponent
-import retrofit2.Retrofit
 
 @Module
 @InstallIn(ViewModelComponent::class)
@@ -31,7 +31,7 @@ abstract class DataModule {
     class ServiceModule {
         @Provides
         fun providesNewsService(
-            retrofit: Retrofit,
-        ): NewsService = retrofit.create(NewsService::class.java)
+            retrofitClient: HttpClient.RetrofitClient,
+        ): NewsService = retrofitClient.create(NewsService::class.java)
     }
 }
