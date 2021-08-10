@@ -7,8 +7,9 @@ import com.github.pedrodimoura.pulselivecodechallenge.features.news.data.datasou
 import com.github.pedrodimoura.pulselivecodechallenge.features.news.domain.model.Article
 import com.github.pedrodimoura.pulselivecodechallenge.features.news.domain.model.News
 import com.github.pedrodimoura.pulselivecodechallenge.features.news.domain.repository.NewsRepository
+import javax.inject.Inject
 
-class NewsRepositoryImpl(
+class NewsRepositoryImpl @Inject constructor(
     private val newsRemoteDatasource: NewsRemoteDatasource,
 ) : NewsRepository {
     override suspend fun getNews(): News {

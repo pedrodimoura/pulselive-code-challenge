@@ -4,8 +4,9 @@ import com.github.pedrodimoura.pulselivecodechallenge.features.news.data.datasou
 import com.github.pedrodimoura.pulselivecodechallenge.features.news.data.datasources.remote.model.ArticleResponse
 import com.github.pedrodimoura.pulselivecodechallenge.features.news.data.datasources.remote.model.NewsResponse
 import com.github.pedrodimoura.pulselivecodechallenge.features.news.data.datasources.remote.service.NewsService
+import javax.inject.Inject
 
-internal class NewsRemoteDatasourceImpl(
+class NewsRemoteDatasourceImpl @Inject constructor(
     private val newsService: NewsService,
 ) : NewsRemoteDatasource {
 
