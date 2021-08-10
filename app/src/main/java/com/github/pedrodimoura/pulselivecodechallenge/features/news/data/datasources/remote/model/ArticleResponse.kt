@@ -11,4 +11,6 @@ data class ArticleResponse(
     val subtitle: String,
     @SerializedName("date")
     val date: String,
+    @SerializedName("body")
+    val body: String?,
 )

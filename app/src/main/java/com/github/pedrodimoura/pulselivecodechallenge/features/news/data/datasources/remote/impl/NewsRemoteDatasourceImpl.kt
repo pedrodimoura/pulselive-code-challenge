@@ -1,6 +1,7 @@
 package com.github.pedrodimoura.pulselivecodechallenge.features.news.data.datasources.remote.impl
 
 import com.github.pedrodimoura.pulselivecodechallenge.features.news.data.datasources.remote.NewsRemoteDatasource
+import com.github.pedrodimoura.pulselivecodechallenge.features.news.data.datasources.remote.model.ArticleResponse
 import com.github.pedrodimoura.pulselivecodechallenge.features.news.data.datasources.remote.model.NewsResponse
 import com.github.pedrodimoura.pulselivecodechallenge.features.news.data.datasources.remote.service.NewsService
 
@@ -9,4 +10,7 @@ internal class NewsRemoteDatasourceImpl(
 ) : NewsRemoteDatasource {
 
     override suspend fun getNews(): NewsResponse = newsService.fetchNews()
+
+    override suspend fun getArticleDetails(id: Int): ArticleResponse =
+        newsService.fetchArticleDetails(id)
 }

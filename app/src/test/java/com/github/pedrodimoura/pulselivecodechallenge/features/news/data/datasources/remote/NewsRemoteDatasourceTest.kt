@@ -44,4 +44,26 @@ class NewsRemoteDatasourceTest {
             coVerify(exactly = 1) { newsService.fetchNews() }
         }
     }
+
+    @Test
+    fun shouldBeSuccessfulWhenFetchArticleDetails() {
+        runBlockingTest {
+            coEvery { newsService.fetchArticleDetails(any()) } returns mockk()
+
+            newsRemoteDatasource.getArticleDetails(1)
+
+            coVerify(exactly = 1) { newsService.fetchArticleDetails(any()) }
+        }
+    }
+
+    @Test(expected = HttpException::class)
+    fun shouldBeNotSuccessfulWhenArticleDetails() {
+        runBlockingTest {
+            coEvery { newsService.fetchArticleDetails(any()) } throws mockk<HttpException>()
+
+            newsRemoteDatasource.getArticleDetails(1)
+
+            coVerify(exactly = 1) { newsService.fetchArticleDetails(any()) }
+        }
+    }
 }
