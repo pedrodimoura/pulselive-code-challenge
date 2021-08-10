@@ -8,6 +8,20 @@
     <fragment
         android:id="@+id/fragmentNews"
         android:name="com.github.pedrodimoura.pulselivecodechallenge.features.news.presentation.fragment.NewsFragment"
-        tools:layout="@layout/fragment_news" />
+        tools:layout="@layout/fragment_news">
+        <action
+            android:id="@+id/fromFragmentNewsToArticleDetails"
+            app:destination="@+id/fragmentArticleDetails" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/fragmentArticleDetails"
+        android:name="com.github.pedrodimoura.pulselivecodechallenge.features.news.presentation.fragment.ArticleDetailsFragment"
+        tools:layout="@layout/fragment_article_details">
+        <argument
+            android:name="article"
+            app:argType="com.github.pedrodimoura.pulselivecodechallenge.features.news.presentation.model.ArticleView"
+            app:nullable="false" />
+    </fragment>
 
 </navigation>

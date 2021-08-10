@@ -13,5 +13,5 @@ class NewsRemoteDatasourceImpl @Inject constructor(
     override suspend fun getNews(): NewsResponse = newsService.fetchNews()
 
     override suspend fun getArticleDetails(id: Int): ArticleResponse =
-        newsService.fetchArticleDetails(id)
+        newsService.fetchArticleDetails(id).item
 }

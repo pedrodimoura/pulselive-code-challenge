@@ -6,12 +6,14 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.viewModels
+import androidx.fragment.app.activityViewModels
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.github.pedrodimoura.pulselivecodechallenge.R
 import com.github.pedrodimoura.pulselivecodechallenge.databinding.FragmentNewsBinding
 import com.github.pedrodimoura.pulselivecodechallenge.features.news.domain.model.Article
 import com.github.pedrodimoura.pulselivecodechallenge.features.news.presentation.adapter.ArticlesAdapter
+import com.github.pedrodimoura.pulselivecodechallenge.features.news.presentation.model.ArticleView
 import com.github.pedrodimoura.pulselivecodechallenge.features.news.presentation.state.NewsState
 import com.github.pedrodimoura.pulselivecodechallenge.features.news.presentation.viewmodel.NewsViewModel
 import com.google.android.material.snackbar.Snackbar
@@ -22,7 +24,7 @@ class NewsFragment : Fragment() {
 
     private lateinit var viewBinding: FragmentNewsBinding
 
-    private val viewModel: NewsViewModel by viewModels()
+    private val viewModel: NewsViewModel by activityViewModels()
 
     private val articlesAdapter: ArticlesAdapter by lazy { ArticlesAdapter() }
 
@@ -58,7 +60,8 @@ class NewsFragment : Fragment() {
 
     private fun setupListeners() {
         articlesAdapter.onArticleClick = {
-            showErrorOnUI("Open Details Activity")
+            val direction = NewsFragmentDirections.fromFragmentNewsToArticleDetails(it.asView())
+            findNavController().navigate(direction)
         }
     }
 
@@ -99,5 +102,8 @@ class NewsFragment : Fragment() {
     }
 
     private fun getDefaultErrorMessage() = getString(R.string.default_error_message)
+
+    private fun Article.asView() =
+        ArticleView(this.id, this.title, this.subtitle, this.body, this.date)
 
 }
