@@ -12,4 +12,9 @@ object AppDependencies {
         "androidx.constraintlayout:constraintlayout:${Versions.constraintLayout}"
     const val hilt = "com.google.dagger:hilt-android:${Versions.hilt}"
     const val hiltCompiler = "com.google.dagger:hilt-android-compiler:${Versions.hilt}"
+    const val retrofit = "com.squareup.retrofit2:retrofit:${Versions.retrofit}"
+    const val gson = "com.google.code.gson:gson:${Versions.gson}"
+    const val httpLoggingInterceptor =
+        "com.squareup.okhttp3:logging-interceptor:${Versions.httpLoggingInterceptor}"
+    const val coroutines = "org.jetbrains.kotlinx:kotlinx-coroutines-android:${Versions.coroutines}"
 }

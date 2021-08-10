@@ -56,8 +56,14 @@ dependencies {
     implementation(AppDependencies.constraintLayout)
     implementation(AppDependencies.hilt)
     kapt(AppDependencies.hiltCompiler)
+    implementation(AppDependencies.retrofit)
+    implementation(AppDependencies.httpLoggingInterceptor)
+    implementation(AppDependencies.gson)
+    implementation(AppDependencies.coroutines)
 
     testImplementation(TestAppDependencies.junit)
+    testImplementation(TestAppDependencies.mockk)
+    testImplementation(TestAppDependencies.coroutines)
     androidTestImplementation(TestAppDependencies.junitExt)
     androidTestImplementation(TestAppDependencies.espresso)
 }
