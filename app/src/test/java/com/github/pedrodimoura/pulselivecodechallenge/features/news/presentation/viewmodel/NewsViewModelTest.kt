@@ -3,8 +3,10 @@ package com.github.pedrodimoura.pulselivecodechallenge.features.news.presentatio
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import androidx.lifecycle.Observer
 import com.github.pedrodimoura.pulselivecodechallenge.common.data.model.DefaultNetworkError
+import com.github.pedrodimoura.pulselivecodechallenge.features.news.domain.model.Article
 import com.github.pedrodimoura.pulselivecodechallenge.features.news.domain.model.News
 import com.github.pedrodimoura.pulselivecodechallenge.features.news.domain.repository.NewsRepository
+import com.github.pedrodimoura.pulselivecodechallenge.features.news.presentation.state.ArticleState
 import com.github.pedrodimoura.pulselivecodechallenge.features.news.presentation.state.NewsState
 import io.mockk.Runs
 import io.mockk.clearAllMocks
@@ -39,11 +41,14 @@ class NewsViewModelTest {
 
     private val newsViewModel: NewsViewModel by lazy { NewsViewModel(newsRepository) }
 
-    private val observer: Observer<NewsState> by lazy { mockk() }
+    private val observerNews: Observer<NewsState> by lazy { mockk() }
+
+    private val observerArticle: Observer<ArticleState> by lazy { mockk() }
 
     @Before
     fun setup() {
-        every { observer.onChanged(any()) } just Runs
+        every { observerNews.onChanged(any()) } just Runs
+        every { observerArticle.onChanged(any()) } just Runs
         Dispatchers.setMain(testCoroutineDispatcher)
     }
 
@@ -59,16 +64,16 @@ class NewsViewModelTest {
             val expectedResult = News(emptyList())
             coEvery { newsRepository.getNews() } returns expectedResult
 
-            newsViewModel.newsUIStateFlow.observeForever(observer)
+            newsViewModel.newsUIStateFlow.observeForever(observerNews)
 
             newsViewModel.getNews()
 
             coVerify(exactly = 1) { newsRepository.getNews() }
 
             verifySequence {
-                observer.onChanged(NewsState.Loading)
-                observer.onChanged(NewsState.Success(expectedResult.articles))
-                observer.onChanged(NewsState.Done)
+                observerNews.onChanged(NewsState.Loading)
+                observerNews.onChanged(NewsState.Success(expectedResult.articles))
+                observerNews.onChanged(NewsState.Done)
             }
 
         }
@@ -80,19 +85,60 @@ class NewsViewModelTest {
             val expectedException = DefaultNetworkError()
             coEvery { newsRepository.getNews() } throws expectedException
 
-            newsViewModel.newsUIStateFlow.observeForever(observer)
+            newsViewModel.newsUIStateFlow.observeForever(observerNews)
 
             newsViewModel.getNews()
 
             coVerify(exactly = 1) { newsRepository.getNews() }
 
             verifySequence {
-                observer.onChanged(NewsState.Loading)
-                observer.onChanged(NewsState.Failure(expectedException.message))
-                observer.onChanged(NewsState.Done)
+                observerNews.onChanged(NewsState.Loading)
+                observerNews.onChanged(NewsState.Failure(expectedException.message))
+                observerNews.onChanged(NewsState.Done)
             }
 
         }
     }
 
+    @Test
+    fun shouldBeSuccessfulWhenGetArticleDetails() {
+        runBlockingTest {
+            val expectedResult = mockk<Article>(relaxed = true)
+            coEvery { newsRepository.getArticleDetails(any()) } returns expectedResult
+
+            newsViewModel.articleUIStateFlow.observeForever(observerArticle)
+
+            newsViewModel.getArticleDetails(mockk(relaxed = true))
+
+            coVerify(exactly = 1) { newsRepository.getArticleDetails(any()) }
+
+            verifySequence {
+                observerArticle.onChanged(ArticleState.Loading)
+                observerArticle.onChanged(ArticleState.Success(expectedResult))
+                observerArticle.onChanged(ArticleState.Done)
+            }
+
+        }
+    }
+
+    @Test
+    fun shouldBeNotSuccessfulWhenGetArticleDetails() {
+        runBlockingTest {
+            val expectedException = DefaultNetworkError()
+            coEvery { newsRepository.getArticleDetails(any()) } throws expectedException
+
+            newsViewModel.articleUIStateFlow.observeForever(observerArticle)
+
+            newsViewModel.getArticleDetails(mockk(relaxed = true))
+
+            coVerify(exactly = 1) { newsRepository.getArticleDetails(any()) }
+
+            verifySequence {
+                observerArticle.onChanged(ArticleState.Loading)
+                observerArticle.onChanged(ArticleState.Failure(expectedException.message))
+                observerArticle.onChanged(ArticleState.Done)
+            }
+
+        }
+    }
 }
