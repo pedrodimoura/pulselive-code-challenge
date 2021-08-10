@@ -1,33 +1,44 @@
-package com.github.pedrodimoura.pulselivecodechallenge.features.news.presentation.activity
+package com.github.pedrodimoura.pulselivecodechallenge.features.news.presentation.fragment
 
 import android.os.Bundle
-import android.widget.Toast
-import androidx.activity.viewModels
-import androidx.appcompat.app.AppCompatActivity
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
 import androidx.core.view.isVisible
+import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.github.pedrodimoura.pulselivecodechallenge.R
-import com.github.pedrodimoura.pulselivecodechallenge.databinding.ActivityMainBinding
+import com.github.pedrodimoura.pulselivecodechallenge.databinding.FragmentNewsBinding
 import com.github.pedrodimoura.pulselivecodechallenge.features.news.domain.model.Article
 import com.github.pedrodimoura.pulselivecodechallenge.features.news.presentation.adapter.ArticlesAdapter
 import com.github.pedrodimoura.pulselivecodechallenge.features.news.presentation.state.NewsState
 import com.github.pedrodimoura.pulselivecodechallenge.features.news.presentation.viewmodel.NewsViewModel
+import com.google.android.material.snackbar.Snackbar
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class MainActivity : AppCompatActivity() {
+class NewsFragment : Fragment() {
 
-    private val viewBinding: ActivityMainBinding by lazy {
-        ActivityMainBinding.inflate(layoutInflater)
-    }
+    private lateinit var viewBinding: FragmentNewsBinding
 
     private val viewModel: NewsViewModel by viewModels()
 
     private val articlesAdapter: ArticlesAdapter by lazy { ArticlesAdapter() }
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        setContentView(viewBinding.root)
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View {
+        val view =
+            LayoutInflater.from(requireContext()).inflate(R.layout.fragment_news, container, false)
+        viewBinding = FragmentNewsBinding.bind(view)
+        return viewBinding.root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
         setupObservers()
         setupListeners()
         setupView()
@@ -35,7 +46,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun setupObservers() {
-        viewModel.newsUIStateFlow.observe(this) { state ->
+        viewModel.newsUIStateFlow.observe(viewLifecycleOwner) { state ->
             when (state) {
                 is NewsState.Loading -> showLoading()
                 is NewsState.Success -> showDataOnUI(state.articles)
@@ -73,7 +84,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun showErrorOnUI(message: String) =
-        Toast.makeText(this, message, Toast.LENGTH_LONG).show()
+        Snackbar.make(requireView(), message, Snackbar.LENGTH_LONG).show()
 
     private fun showContent() {
         viewBinding.rvArticles.isVisible = true
@@ -88,4 +99,5 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun getDefaultErrorMessage() = getString(R.string.default_error_message)
+
 }

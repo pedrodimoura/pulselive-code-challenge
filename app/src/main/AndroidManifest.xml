@@ -16,7 +16,7 @@
         android:theme="@style/Theme.PulseliveCodeChallenge"
         tools:ignore="AllowBackup"
         tools:targetApi="n">
-        <activity android:name=".features.news.presentation.activity.MainActivity">
+        <activity android:name=".features.news.presentation.activity.NewsActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

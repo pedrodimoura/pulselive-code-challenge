@@ -7,6 +7,7 @@ buildscript {
         classpath(AppDependencies.gradle)
         classpath(AppDependencies.kotlin)
         classpath(AppDependencies.hiltPlugin)
+        classpath(AppDependencies.navigationSafeArgs)
     }
 }
 

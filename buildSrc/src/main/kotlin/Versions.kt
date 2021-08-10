@@ -17,6 +17,7 @@ object Versions {
     const val gsonConverter = "2.8.1"
     const val fragmentKtx = "1.3.6"
     const val activityKtx = "1.3.1"
+    const val navigation = "2.3.5"
 
     const val junit = "4.13.2"
     const val junitExt = "1.1.3"

@@ -3,6 +3,8 @@ object AppDependencies {
     const val gradle = "com.android.tools.build:gradle:${Versions.gradle}"
     const val kotlin = "org.jetbrains.kotlin:kotlin-gradle-plugin:${Versions.kotlin}"
     const val hiltPlugin = "com.google.dagger:hilt-android-gradle-plugin:${Versions.hilt}"
+    const val navigationSafeArgs =
+        "androidx.navigation:navigation-safe-args-gradle-plugin:${Versions.navigation}"
 
     const val kotlinStdLib = "org.jetbrains.kotlin:kotlin-stdlib:${Versions.kotlin}"
     const val coreKtx = "androidx.core:core-ktx:${Versions.coreKtx}"
@@ -24,4 +26,7 @@ object AppDependencies {
     const val gsonConverter = "com.squareup.retrofit2:converter-gson:${Versions.gsonConverter}"
     const val fragmentKtx = "androidx.fragment:fragment-ktx:${Versions.fragmentKtx}"
     const val activityKtx = "androidx.activity:activity-ktx:${Versions.activityKtx}"
+    const val navigationFragmentKtx =
+        "androidx.navigation:navigation-fragment-ktx:${Versions.navigation}"
+    const val navigationUIKtx = "androidx.navigation:navigation-ui-ktx:${Versions.navigation}"
 }

@@ -4,6 +4,7 @@ plugins {
     kotlin("kapt")
     id("kotlin-parcelize")
     id("dagger.hilt.android.plugin")
+    id("androidx.navigation.safeargs.kotlin")
 }
 
 repositories {
@@ -68,6 +69,8 @@ dependencies {
     implementation(AppDependencies.viewModel)
     implementation(AppDependencies.liveData)
     implementation(AppDependencies.gsonConverter)
+    implementation(AppDependencies.navigationFragmentKtx)
+    implementation(AppDependencies.navigationUIKtx)
 
     testImplementation(TestAppDependencies.junit)
     testImplementation(TestAppDependencies.mockk)
